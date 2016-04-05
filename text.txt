@@ -1,0 +1,7 @@
+Although we could write our program using vector, set, and map directly, it will be
+more useful if we define a more abstract solution. We’ll start by designing a class to
+hold the input file in a way that makes querying the file easy. This class, which we’ll
+name TextQuery, will hold a vector and a map. The vector will hold the text of
+the input file; the map will associate each word in that file to the set of line numbers
+on which that word appears. This class will have a constructor that reads a given
+input file and an operation to perform the queries.
