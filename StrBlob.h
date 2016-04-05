@@ -44,6 +44,12 @@ public:
         auto ret = StrBlobPtr(*this, data->size());
         return ret;
     }
+    std::string &operator[](std::size_t n) {
+        return (*data)[n];
+    }
+    const std::string &operator[](std::size_t n) const {
+        return (*data)[n];
+    }
 private:
     std::shared_ptr<std::vector<std::string>> data;
     // throws msg if data[i] isn't valid

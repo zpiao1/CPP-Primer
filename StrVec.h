@@ -34,6 +34,12 @@ public:
     StrVec(StrVec &&s) noexcept;
     StrVec& operator=(StrVec &&rhs) noexcept;
     StrVec& operator=(std::initializer_list<std::string>);
+    std::string &operator[](std::size_t n) {
+        return elements[n];
+    }
+    const std::string &operator[](std::size_t n) const {
+        return elements[n];
+    }
     // ...
 private:
     std::allocator<std::string> alloc;  // alloates the elements

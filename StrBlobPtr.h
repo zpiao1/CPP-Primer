@@ -17,6 +17,12 @@ public:
     StrBlobPtr(StrBlob &a, size_t sz);
     std::string &deref() const;
     StrBlobPtr &incr(); // prefix version
+    std::string &operator[](std::size_t n) {
+        return (*wptr)[n];
+    }
+    const std::string &operator[](std::size_t n) const {
+        return (*wptr)[n];
+    }
 private:
     // check returns a shared_ptr to the vector if the check succeeds
     std::shared_ptr<std::vector<std::string>> check(std::size_t, const std::string &) const;

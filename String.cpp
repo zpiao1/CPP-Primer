@@ -53,6 +53,12 @@ public:
     void resize(size_t n, const char &c);
     String(String &&) noexcept;  // move constructor
     String &operator=(String &&) noexcept;   // move assignment operator
+    char &operator[](std::size_t n) {
+        return elements[n];
+    }
+    const char &operator[](std::size_t n) const {
+        return elements[n];
+    }
 };
 
 std::pair<char *, char *> String::alloc_n_copy(const char *b, const char *e) 
