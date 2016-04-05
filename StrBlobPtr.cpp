@@ -49,3 +49,74 @@ bool operator>(const StrBlobPtr &lhs, const StrBlobPtr &rhs)
     else
         return lhs.curr > rhs.curr;
 }
+
+std::string &operator[](std::size_t n)
+{
+    auto p = check(n, "dereference past end");
+    return (*p)[n];
+}
+
+const std::string &operator[](std::size_t n) const
+{
+    auto p = check(n, "dereference past end");
+    return (*p)[n];
+}
+// prefix: return a reference to the incremented/decremented object
+StrBlobPtr &StrBlobPtr::operator++()
+{
+    // if curr already points past the end of the container, can't increment it
+    check(curr, "increment past end of StrBlobPtr");
+    ++curr; // advance the current state
+    return *this;
+}
+StrBlobPtr &StrBlobPtr::operator--()
+{
+    // if curr is zero, decrementing it will yield an invaluid subscript
+    --curr; // move the current state back one element
+    check(-1, "decrement past begin of StrBlobPtr");
+    return *this;
+}
+
+// postfix: increment/decrement the object but return the unchanged value
+StrBlobPtr StrBlobPtr::operator++(int)
+{
+    // no check needed here; the call to prefix increment will do the check
+    StrBlobPtr ret = *this; // save the current value
+    ++*this;    // advance one element; prefix ++ checks the increment
+    return ret;
+}
+
+StrBlobPtr StrBlobPtr::operator--(int)
+{
+    // no check needed here; the call to prefix decrement will do the check
+    StrBlobPtr ret = *this; // save the current value
+    --*this;    // move backward one element; prefix -- checks the decrement
+    return ret; // return the saved state
+}
+
+StrBlobPtr &StrBlobPtr::operator+=(size_t n)
+{
+    check(curr + n, "increment pass end of StrBlobPtr");
+    curr += n;
+    return *this;
+}
+
+StrBlobPtr &StrBlobPtr::operator-=(size_t n)
+{
+    check(curr - n, "decrement pass end of StrBlobPtr");
+    curr -= n;
+    return *this;
+}
+
+StrBlobPtr operator+(const StrBlobPtr &lhs, std::size_t n)
+{
+    StrBlobPtr ret = lhs;
+    ret += n;
+    return ret;
+}
+StrBlobPtr operator-(const StrBlobPtr &lhs, std::size_t n)
+{
+    StrBlobPtr ret = lhs;
+    ret -= n;
+    return ret;
+}
