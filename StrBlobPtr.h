@@ -31,6 +31,14 @@ public:
     StrBlobPtr operator--(int);
     StrBlobPtr& operator+=(std::size_t n);
     StrBlobPtr& operator-=(std::size_t n);
+    std::string &operator*() const {
+        auto p = check(curr, "dereference past end");
+        return (*p)[curr];  // (*p) is the vector to which this object points
+    }
+    std::string *operator->() const {
+        // delegate the real work to the dereference operator
+        return &this->operator*();
+    }
 private:
     // check returns a shared_ptr to the vector if the check succeeds
     std::shared_ptr<std::vector<std::string>> check(std::size_t, const std::string &) const;
