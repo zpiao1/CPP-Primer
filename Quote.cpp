@@ -12,13 +12,26 @@ public:
         return n * price;
     }
     virtual void debug(std::ostream &os) const;
+    Quote(const Quote&) = default;  // memberwise copy
+    Quote(Quote&&) = default;   // memberwise copy
+    Quote& operator=(const Quote&) = default;   // copy assign
+    Quote& operator=(Quote&&) = default;    // move assign
     virtual ~Quote() = default; // dynamic binding for the destructor
+    // virtual function to return a dynamically allocate copy of itself
+    // these members use reference qualifiers; see §13.6.3 (p. 546)
+    virtual Quote* clone() const & {
+        return new Quote(*this);
+    }
+    virtual Quote* clone() && {
+        return new Quote(std::move(*this));
+    }
+    // other members as before
 private:
     std::string bookNo; // ISBN number of this item
 protected:
     double price = 0.0; // normal, undiscounted price
 };
-using namepspace std;
+using namespace std;
 // calculate and print the price for the given number of copies, applying any discounts
 double print_total(ostream &os, const Quote &item, size_t n)
 {
