@@ -4,6 +4,7 @@
 #include <memory>
 #include <utility>
 #include <initializer_list>
+#include <functional>
 // simplified implementation of the memory allocation strategy for a vector-like class
 class StrVec;
 bool operator==(const StrVec &lhs, const StrVec &rhs);
@@ -40,6 +41,7 @@ public:
     const std::string &operator[](std::size_t n) const {
         return elements[n];
     }
+    template <class... Args> void emplace_back(Args&&...);
     // ...
 private:
     std::allocator<std::string> alloc;  // alloates the elements

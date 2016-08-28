@@ -8,6 +8,17 @@
 #include <set>
 #include <map>
 #include <memory>
+class DebugDelete {
+public:
+    DebugDelete(std::ostream &s = std::cerr): os(s) {}
+    template <typename T> void operator()(T* p) const
+    {
+        os << "deleting shared_ptr" << std::endl;
+        delete p;
+    }
+private:
+    std::ostream &os;
+};
 class QueryResult;  // declaration needed for return type in the query function
 std::ostream &print(std::ostream &, const QueryResult&);
 class TextQuery {

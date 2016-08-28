@@ -1,0 +1,1 @@
+void f() noexcept(noexcept(g()));   // f has same exception specifier as g

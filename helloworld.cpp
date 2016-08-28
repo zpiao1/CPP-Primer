@@ -1,18 +1,21 @@
+#include <string>
 #include <iostream>
-#include <vector>
+#include <functional>
+
 using namespace std;
 int main()
 {
-    vector<int> a = {1,2};
-    a.resize(5);
-    cout << a.size() << endl << a.capacity() << endl;
-    for (auto i : a)
-        cout << i << ' ';
-    cout << endl;
-    a.resize(1);
-    cout << a.size() << endl << a.capacity() << endl;
-    for (auto i : a)
-        cout << i << ' ';
-    cout << endl;
+    int a = 1;
+    string s = "hey!";
+
+    int b = std::move(a);
+    cout << b << endl;
+    b = std::move(a);
+    cout << b << endl;
+
+    string t = std::move(s);
+    cout << t << endl;
+    t = std::move(s);
+    cout << t << endl;
     return 0;
 }

@@ -71,7 +71,7 @@ StrBlobPtr &StrBlobPtr::operator++()
 }
 StrBlobPtr &StrBlobPtr::operator--()
 {
-    // if curr is zero, decrementing it will yield an invaluid subscript
+    // if curr is zero, decrementing it will yield an invalid subscript
     --curr; // move the current state back one element
     check(-1, "decrement past begin of StrBlobPtr");
     return *this;

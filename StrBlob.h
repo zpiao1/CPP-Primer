@@ -45,9 +45,11 @@ public:
         return ret;
     }
     std::string &operator[](std::size_t n) {
+        check(n, "subscript out of range");
         return (*data)[n];
     }
     const std::string &operator[](std::size_t n) const {
+        check(n, "subscript out of range");
         return (*data)[n];
     }
 private:

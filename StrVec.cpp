@@ -109,7 +109,7 @@ bool operator==(const StrVec &lhs, const StrVec &rhs)
     else {
         auto iter1 = lhs.begin();
         auto iter2 = rhs.begin();
-        while (iter1 != lhs.begin() && iter2 != rhs.begin()) {
+        while (iter1 != lhs.end() && iter2 != rhs.end()) {
             if (*iter1 != *iter2)
                 return false;
             iter1++;
@@ -183,4 +183,12 @@ StrVec &StrVec::operator=(initializer_list<string> il)
     elements = data.first;  // update data members to point to the new space
     first_free = cap = data.second;
     return *this;
+}
+
+template <class... Args>
+inline
+void StrVec::emplace_back(Args&&... args)
+{
+    chk_n_alloc();  // reallocates the StrVec if necessary
+    alloc.construct(first_free++, std::forward<Args>(args)...);
 }

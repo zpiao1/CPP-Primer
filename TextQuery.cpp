@@ -22,7 +22,7 @@ TextQuery::TextQuery(ifstream &is): file(new vector<string>)
 QueryResult TextQuery::query(const string &sought) const
 {
     // we'll return a pointer to this set if we don't find sought
-    static shared_ptr<set<line_no>> nodata(new set<line_no>);
+    static shared_ptr<set<line_no>> nodata(new set<line_no>, DebugDelete());
     // use find and not a subscript to avoid addign words to wm!
     auto loc = wm.find(sought);
     if (loc == wm.end())
